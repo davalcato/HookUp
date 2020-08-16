@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        Text("Hello, world!").padding()
+        LoginView()
     }
 }
 
@@ -27,9 +27,11 @@ struct LoginView : View {
         VStack{
             
             Image("logo")
+                .resizable()
+                .frame(width: 200, height: 180)
                 .padding(.horizontal)
-                .padding(.vertical,20)
-                .background(Color.white.opacity(0.2))
+                .padding(.vertical,60)
+                .background(Color.white.opacity(0))
                 .cornerRadius(30)
             
             Divider()
