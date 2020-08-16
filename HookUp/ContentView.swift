@@ -26,13 +26,36 @@ struct LoginView : View {
         
         VStack{
             
+            Spacer(minLength: 0)
+            
             Image("logo")
                 .resizable()
                 .frame(width: 200, height: 180)
                 .padding(.horizontal)
-                .padding(.vertical,60)
+                .padding(.vertical,30)
                 .background(Color.white.opacity(0))
                 .cornerRadius(30)
+            
+            VStack(spacing: 4){
+                
+                HStack(spacing: 0){
+                    
+                    Text("Dating")
+                        .font(.system(size: 35, weight: .heavy))
+                        .foregroundColor(.white)
+                    
+                    Text("Match")
+                        .font(.system(size: 35, weight: .heavy))
+                        .foregroundColor(Color("txt"))
+                    
+                }
+                
+                Text("let's choose your match")
+                    .foregroundColor(Color.black.opacity(0.3))
+                    .fontWeight(.heavy)
+                
+            }
+            .padding(.top)
             
             Divider()
             
