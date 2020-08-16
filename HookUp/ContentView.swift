@@ -101,7 +101,7 @@ struct LoginView : View {
                 Text("Don't have an account?")
                     .foregroundColor(Color.white.opacity(0.7))
                 
-                Button(action: {}) {
+                Button(action: {model.isSignUp.toggle()}) {
                     
                     Text("Sign Up Now")
                         .fontWeight(.bold)
@@ -121,6 +121,14 @@ struct LoginView : View {
             Spacer(minLength: 0)
         }
         .background(LinearGradient(gradient: .init(colors: [Color("top"),Color("bottom")]), startPoint: .top, endPoint: .bottom)).edgesIgnoringSafeArea(.all)
+        
+        .fullScreenCover(isPresented: $model.isSignUp) {
+            
+            SignUpView(model: model)
+            
+            
+            
+        }
     }
 }
 
@@ -163,12 +171,90 @@ struct CustomTextField : View {
     
 }
 
+struct SignUpView : View {
+    
+    @State var value : CGFloat = 0
+    @ObservedObject var model : ModelData
+    var body: some View{
+        
+        VStack{
+            
+            Spacer(minLength: 0)
+            
+            Image("logo")
+                .resizable()
+                .frame(width: 200, height: 180)
+                .padding(.horizontal)
+                .padding(.vertical,30)
+                .background(Color.white.opacity(0))
+                .cornerRadius(30)
+            
+            VStack(spacing: 4){
+                
+                HStack(spacing: 0){
+                    
+                    Text("New")
+                        .font(.system(size: 35, weight: .heavy))
+                        .foregroundColor(.white)
+                    
+                    Text("Profile")
+                        .font(.system(size: 35, weight: .heavy))
+                        .foregroundColor(Color("txt"))
+                    
+                }
+                
+                Text("Create a profile here!!!")
+                    .foregroundColor(Color.black.opacity(0.3))
+                    .fontWeight(.heavy)
+                
+            }
+            .padding(.top)
+            
+            VStack(spacing: 20) {
+                
+                CustomTextField(image: "person", placeHolder: "Email", txt: $model.email_SignUP)
+                
+                CustomTextField(image: "lock", placeHolder: "Password", txt: $model.password_SignUp)
+                
+                CustomTextField(image: "lock", placeHolder: "Password", txt: $model.reEnterPassword)
+                
+                
+            }.offset(y: -self.value)
+            .animation(.spring())
+            .onAppear {
+                
+                NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { (noti) in
+                    
+                    let value = noti.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
+                    let height = value.height
+                    
+                    self.value = height
+                }
+                
+                NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { (noti) in
+                    
+                    self.value = 0
+                }
+            }
+            .padding(.top)
+            
+            Spacer(minLength: 0)
+            
+        }
+        .background(LinearGradient(gradient: .init(colors: [Color("top"),Color("bottom")]), startPoint: .top, endPoint: .bottom)).edgesIgnoringSafeArea(.all)
+    }
+}
+
 // MVVM Model will start here...
 
 class ModelData : ObservableObject {
     
     @Published var email = ""
     @Published var password = ""
+    @Published var isSignUp = false
+    @Published var email_SignUP = ""
+    @Published var password_SignUp = ""
+    @Published var reEnterPassword = ""
 
 
 
