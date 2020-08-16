@@ -52,7 +52,7 @@ struct LoginView : View {
                     
                 }
                 
-                Text("let's choose your match")
+                Text("the best way to choose your match")
                     .foregroundColor(Color.black.opacity(0.3))
                     .fontWeight(.heavy)
                 
@@ -83,6 +83,19 @@ struct LoginView : View {
             }
             .padding(.top)
             
+            // Here is the Login button
+            Button(action: {}) {
+                
+                Text("LOGIN")
+                    .fontWeight(.bold)
+                    .foregroundColor(Color("bottom"))
+                    .padding(.vertical)
+                    .frame(width: UIScreen.main.bounds.width - 30)
+                    .background(Color.white)
+                    .clipShape(Capsule())
+            }
+            .padding(.top,22)
+    
             Spacer(minLength: 0)
         }
         .background(LinearGradient(gradient: .init(colors: [Color("top"),Color("bottom")]), startPoint: .top, endPoint: .bottom)).edgesIgnoringSafeArea(.all)
