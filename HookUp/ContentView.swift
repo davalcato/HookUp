@@ -22,6 +22,7 @@ struct ContentView_Previews: PreviewProvider {
 
 struct LoginView : View {
     
+    @StateObject var model = ModelData()
     var body: some View{
         
         VStack{
@@ -57,13 +58,81 @@ struct LoginView : View {
             }
             .padding(.top)
             
-            Divider()
+            VStack(spacing: 20) {
+                
+                CustomTextField(image: "person", placeHolder: "Email", txt: $model.email)
+                
+                CustomTextField(image: "lock", placeHolder: "Password", txt: $model.email)
+            }
+            .padding(.top)
             
             Spacer(minLength: 0)
         }
         .background(LinearGradient(gradient: .init(colors: [Color("top"),Color("bottom")]), startPoint: .top, endPoint: .bottom)).edgesIgnoringSafeArea(.all)
     }
 }
+
+struct CustomTextField : View {
+    
+    var image : String
+    var placeHolder : String
+    @Binding var txt : String
+    
+    
+    var body: some View{
+        
+        ZStack(alignment: Alignment(horizontal: .leading, vertical: .center)) {
+            
+            
+            Image(systemName: image)
+                .font(.system(size: 24))
+                .foregroundColor(Color("bottom"))
+                .frame(width: 60, height: 60)
+                .background(Color.white)
+                .clipShape(Circle())
+            
+            ZStack{
+                
+                if placeHolder == "Password"{
+                    SecureField(placeHolder, text: $txt)
+                }
+                else{
+                    TextField(placeHolder, text: $txt)
+                }
+            }
+                .padding(.horizontal)
+                .padding(.leading,65)
+                .frame(height: 60)
+                .background(Color.white.opacity(0.2))
+                .clipShape(Capsule())
+        }
+        .padding(.horizontal)
+    }
+    
+}
+
+// MVVM Model will start here...
+
+class ModelData : ObservableObject {
+    
+    @Published var email = ""
+    @Published var password = ""
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
 
