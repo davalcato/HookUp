@@ -22,6 +22,7 @@ struct ContentView_Previews: PreviewProvider {
 
 struct LoginView : View {
     
+    @State var value : CGFloat = 0
     @StateObject var model = ModelData()
     var body: some View{
         
@@ -62,7 +63,23 @@ struct LoginView : View {
                 
                 CustomTextField(image: "person", placeHolder: "Email", txt: $model.email)
                 
-                CustomTextField(image: "lock", placeHolder: "Password", txt: $model.email)
+                CustomTextField(image: "lock", placeHolder: "Password", txt: $model.password)
+            }.offset(y: -self.value)
+            .animation(.spring())
+            .onAppear {
+                
+                NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { (noti) in
+                    
+                    let value = noti.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
+                    let height = value.height
+                    
+                    self.value = height
+                }
+                
+                NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { (noti) in
+                    
+                    self.value = 0
+                }
             }
             .padding(.top)
             
