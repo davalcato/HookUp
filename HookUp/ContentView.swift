@@ -95,7 +95,29 @@ struct LoginView : View {
                     .clipShape(Capsule())
             }
             .padding(.top,22)
-    
+            
+            HStack(spacing: 12){
+                
+                Text("Don't have an account?")
+                    .foregroundColor(Color.white.opacity(0.7))
+                
+                Button(action: {}) {
+                    
+                    Text("Sign Up Now")
+                        .fontWeight(.bold)
+                        .foregroundColor(.white)
+                }
+            }
+            .padding(.top,25)
+            
+            Button(action: {}) {
+                
+                Text("Forgot password?")
+                    .fontWeight(.bold)
+                    .foregroundColor(.white)
+            }
+            .padding(.vertical,22)
+     
             Spacer(minLength: 0)
         }
         .background(LinearGradient(gradient: .init(colors: [Color("top"),Color("bottom")]), startPoint: .top, endPoint: .bottom)).edgesIgnoringSafeArea(.all)
