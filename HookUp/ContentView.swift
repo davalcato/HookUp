@@ -18,3 +18,38 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
+
+
+struct LoginView : View {
+    
+    var body: some View{
+        
+        VStack{
+            
+            Image("logo")
+                .padding(.horizontal)
+                .padding(.vertical,20)
+                .background(Color.white.opacity(0.2))
+                .cornerRadius(30)
+            
+            Divider()
+            
+            Spacer(minLength: 0)
+        }
+        .background(LinearGradient(gradient: .init(colors: [Color("top"),Color("bottom")]), startPoint: .top, endPoint: .bottom).ignoresSafeArea(.all, edges: .all))
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
