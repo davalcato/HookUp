@@ -138,7 +138,6 @@ struct CustomTextField : View {
     var placeHolder : String
     @Binding var txt : String
     
-    
     var body: some View{
         
         ZStack(alignment: Alignment(horizontal: .leading, vertical: .center)) {
@@ -153,7 +152,7 @@ struct CustomTextField : View {
             
             ZStack{
                 
-                if placeHolder == "Password"{
+                if placeHolder == "Password" || placeHolder == "Re-Enter"{
                     SecureField(placeHolder, text: $txt)
                 }
                 else{
@@ -177,70 +176,97 @@ struct SignUpView : View {
     @ObservedObject var model : ModelData
     var body: some View{
         
-        VStack{
+        ZStack(alignment: Alignment(horizontal: .trailing, vertical: .top), content: {
             
-            Spacer(minLength: 0)
-            
-            Image("logo")
-                .resizable()
-                .frame(width: 200, height: 180)
-                .padding(.horizontal)
-                .padding(.vertical,30)
-                .background(Color.white.opacity(0))
-                .cornerRadius(30)
-            
-            VStack(spacing: 4){
+            VStack{
                 
-                HStack(spacing: 0){
+                Spacer(minLength: 0)
+                
+                Image("logo")
+                    .resizable()
+                    .frame(width: 200, height: 180)
+                    .padding(.horizontal)
+                    .padding(.vertical,30)
+                    .background(Color.white.opacity(0))
+                    .cornerRadius(30)
+                
+                VStack(spacing: 4){
                     
-                    Text("New")
-                        .font(.system(size: 35, weight: .heavy))
-                        .foregroundColor(.white)
+                    HStack(spacing: 0){
+                        
+                        Text("New")
+                            .font(.system(size: 35, weight: .heavy))
+                            .foregroundColor(.white)
+                        
+                        Text("Profile")
+                            .font(.system(size: 35, weight: .heavy))
+                            .foregroundColor(Color("txt"))
+                        
+                    }
                     
-                    Text("Profile")
-                        .font(.system(size: 35, weight: .heavy))
-                        .foregroundColor(Color("txt"))
+                    Text("Create a profile here!!!")
+                        .foregroundColor(Color.black.opacity(0.3))
+                        .fontWeight(.heavy)
                     
                 }
+                .padding(.top)
                 
-                Text("Create a profile here!!!")
-                    .foregroundColor(Color.black.opacity(0.3))
-                    .fontWeight(.heavy)
+                VStack(spacing: 20) {
+                    
+                    CustomTextField(image: "person", placeHolder: "Email", txt: $model.email_SignUP)
+                    
+                    CustomTextField(image: "lock", placeHolder: "Password", txt: $model.password_SignUp)
+                    
+                    CustomTextField(image: "lock", placeHolder: "Re-Enter", txt: $model.reEnterPassword)
+                    
+                    
+                }.offset(y: -self.value)
+                .animation(.spring())
+                .onAppear {
+                    
+                    NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { (noti) in
+                        
+                        let value = noti.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
+                        let height = value.height
+                        
+                        self.value = height
+                    }
+                    
+                    NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { (noti) in
+                        
+                        self.value = 0
+                    }
+                }
+                .padding(.top)
+                
+                Button(action: {}) {
+                    
+                    Text("SIGNUP")
+                        .fontWeight(.bold)
+                        .foregroundColor(Color("bottom"))
+                        .padding(.vertical)
+                        .frame(width: UIScreen.main.bounds.width - 30)
+                        .background(Color.white)
+                        .clipShape(Capsule())
+                }
+                .padding(.vertical,22)
+                
+                Spacer(minLength: 0)
                 
             }
-            .padding(.top)
             
-            VStack(spacing: 20) {
+            Button(action: {model.isSignUp.toggle()}) {
                 
-                CustomTextField(image: "person", placeHolder: "Email", txt: $model.email_SignUP)
-                
-                CustomTextField(image: "lock", placeHolder: "Password", txt: $model.password_SignUp)
-                
-                CustomTextField(image: "lock", placeHolder: "Password", txt: $model.reEnterPassword)
-                
-                
-            }.offset(y: -self.value)
-            .animation(.spring())
-            .onAppear {
-                
-                NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { (noti) in
-                    
-                    let value = noti.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
-                    let height = value.height
-                    
-                    self.value = height
-                }
-                
-                NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { (noti) in
-                    
-                    self.value = 0
-                }
+                Image(systemName: "xmark")
+                    .foregroundColor(.white)
+                    .padding()
+                    .background(Color.black.opacity(0.6))
+                    .clipShape(Circle())
             }
-            .padding(.top)
+            .padding(.trailing)
+            .padding(.top,10)
             
-            Spacer(minLength: 0)
-            
-        }
+        })
         .background(LinearGradient(gradient: .init(colors: [Color("top"),Color("bottom")]), startPoint: .top, endPoint: .bottom)).edgesIgnoringSafeArea(.all)
     }
 }
