@@ -281,10 +281,24 @@ class ModelData : ObservableObject {
     @Published var email_SignUP = ""
     @Published var password_SignUp = ""
     @Published var reEnterPassword = ""
+    @Published var resetEmail = ""
+    
 
-
-
-
+    
+    // Here is where the AlertView with TextFields goes...
+    
+    func resetPassword(){
+        
+        let alert = UIAlertController(title: "Reset Password", message: "Enter your E-Mail ID To Reset Your Password", preferredStyle: .alert)
+        
+        alert.addTextField { (password) in
+            password.placeholder = "Email"
+        }
+        let proceed = UIAlertAction(title: "Reset", style: .default) { (_) in
+            
+            self.resetEmail = alert.textFields![0].text!
+        }
+    }
 }
 
 
