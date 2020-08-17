@@ -110,7 +110,7 @@ struct LoginView : View {
             }
             .padding(.top,25)
             
-            Button(action: {}) {
+            Button(action: model.resetPassword) {
                 
                 Text("Forgot password?")
                     .fontWeight(.bold)
@@ -126,8 +126,10 @@ struct LoginView : View {
             
             SignUpView(model: model)
             
+        }
+        .alert(isPresented: $model.islinkSend) {
             
-            
+            Alert(title: Text("Message"), message: Text("Password Reset Link Has Been Sent"), dismissButton: .destructive(Text("OK")))
         }
     }
 }
@@ -282,8 +284,7 @@ class ModelData : ObservableObject {
     @Published var password_SignUp = ""
     @Published var reEnterPassword = ""
     @Published var resetEmail = ""
-    
-
+    @Published var islinkSend = false
     
     // Here is where the AlertView with TextFields goes...
     
@@ -297,7 +298,20 @@ class ModelData : ObservableObject {
         let proceed = UIAlertAction(title: "Reset", style: .default) { (_) in
             
             self.resetEmail = alert.textFields![0].text!
+            
+            // Presenting the alert here after email link has been sent...
+            
+            self.islinkSend.toggle()
         }
+        
+        let cancel = UIAlertAction(title: "Cancel", style: .destructive, handler: nil)
+        
+        alert.addAction(cancel)
+        alert.addAction(proceed)
+        
+        // Presenting the model message...
+        UIApplication.shared.windows.first?.rootViewController?.present(alert, animated: true)
+        
     }
 }
 
