@@ -6,10 +6,34 @@
 //
 
 import SwiftUI
+import Firebase
+
 
 struct ContentView: View {
+    
+    @AppStorage("log_Status") var status = false
+    
     var body: some View {
-        LoginView()
+        
+        ZStack{
+            
+            if status{
+                
+                VStack(spacing: 25){
+                    
+                    Text("Logged In As \(Auth.auth().currentUser?.email ?? "")")
+                    
+                    Button(action: {}, label: {
+                        Text("LogOut")
+                            .fontWeight(.bold)
+                    })
+                }
+            }
+            else{
+                
+                LoginView()
+            }
+        }
     }
 }
 
@@ -96,7 +120,7 @@ struct LoginView : View {
             .padding(.top)
             
             // Here is the Login button
-            Button(action: {}) {
+            Button(action: model.login) {
                 
                 Text("LOGIN")
                     .fontWeight(.bold)
@@ -139,10 +163,11 @@ struct LoginView : View {
             SignUpView(model: model)
             
         }
-        .alert(isPresented: $model.islinkSend) {
+        // Password Reset Link is here...
+        .alert(isPresented: $model.alert, content: {
             
-            Alert(title: Text("Message"), message: Text("Password Reset Link Has Been Sent"), dismissButton: .destructive(Text("OK")))
-        }
+            Alert(title: Text("Message"), message: Text(model.alertMsg), dismissButton: .destructive(Text("OK")))
+        })
     }
 }
 
@@ -210,7 +235,6 @@ struct SignUpView : View {
                             .frame(width: 200, height: 180)
                     }
                 }
-                    
                     .padding(.horizontal)
                     .padding(.vertical,30)
                     .background(Color.white.opacity(0))
@@ -266,7 +290,7 @@ struct SignUpView : View {
                 }
                 .padding(.top)
                 
-                Button(action: {}) {
+                Button(action: model.signUP) {
                     
                     Text("SIGNUP")
                         .fontWeight(.bold)
@@ -313,6 +337,14 @@ class ModelData : ObservableObject {
     
     // Here is where the AlertView with TextFields goes...
     
+    
+    // Error Alerts go here...
+    @Published var alert = false
+    @Published var alertMsg = ""
+    
+    // Here is the User Status...
+    @AppStorage("log_Status") var status = false
+    
     func resetPassword(){
         
         let alert = UIAlertController(title: "Reset Password", message: "Enter your E-Mail ID To Reset Your Password", preferredStyle: .alert)
@@ -338,6 +370,61 @@ class ModelData : ObservableObject {
         UIApplication.shared.windows.first?.rootViewController?.present(alert, animated: true)
         
     }
+    
+    // Login here...
+    
+    func login(){
+        
+        // Here we check all fields for correct input...
+        if email == "" || password == ""{
+            
+            self.alertMsg = "Please add the correct contents !!!"
+            self.alert.toggle()
+            return
+        }
+        
+        Auth.auth().signIn(withEmail: email, password: password) { (result, err) in
+            
+            if err != nil{
+                
+                self.alertMsg = err!.localizedDescription
+                self.alert.toggle()
+                return
+            }
+            
+            // Here we check if the user is verified or not...
+            
+            let user = Auth.auth().currentUser
+            
+            if !user!.isEmailVerified{
+                
+                self.alertMsg = "Be sure to Verify Email address!!!"
+                self.alert.toggle()
+                // Logging out here...
+                try! Auth.auth().signOut()
+                
+                return
+                
+            }
+            
+            // Here we set user status to true...
+            
+            withAnimation{
+                
+                self.status = true
+            }
+        }
+    }
+    
+    // SignUp goes here....
+    func signUP(){
+        
+        
+    }
+    
+    // Checking with Smaller devices...
+    
+    
 }
 
 
