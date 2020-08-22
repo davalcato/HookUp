@@ -44,11 +44,11 @@ struct LoginView : View {
                         .frame(width: 200, height: 180)
                 }
             }
-                
                 .padding(.horizontal)
                 .padding(.vertical,30)
                 .background(Color.white.opacity(0))
                 .cornerRadius(30)
+                .padding(.top)
             
             VStack(spacing: 4){
                 
@@ -196,13 +196,26 @@ struct SignUpView : View {
                 
                 Spacer(minLength: 0)
                 
-                Image("logo")
-                    .resizable()
-                    .frame(width: 200, height: 180)
+                ZStack{
+                    
+                    if UIScreen.main.bounds.height < 750{
+                        
+                        Image("logo")
+                            .resizable()
+                            .frame(width: 200, height: 180)
+                    }
+                    else{
+                        Image("logo")
+                            .resizable()
+                            .frame(width: 200, height: 180)
+                    }
+                }
+                    
                     .padding(.horizontal)
                     .padding(.vertical,30)
                     .background(Color.white.opacity(0))
                     .cornerRadius(30)
+                    .padding(.top)
                 
                 VStack(spacing: 4){
                     
