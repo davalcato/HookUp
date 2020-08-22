@@ -30,9 +30,21 @@ struct LoginView : View {
             
             Spacer(minLength: 0)
             
-            Image("logo")
-                .resizable()
-                .frame(width: 200, height: 180)
+            ZStack{
+                
+                if UIScreen.main.bounds.height < 750{
+                    
+                    Image("logo")
+                        .resizable()
+                        .frame(width: 200, height: 180)
+                }
+                else{
+                    Image("logo")
+                        .resizable()
+                        .frame(width: 200, height: 180)
+                }
+            }
+                
                 .padding(.horizontal)
                 .padding(.vertical,30)
                 .background(Color.white.opacity(0))
@@ -99,7 +111,7 @@ struct LoginView : View {
             HStack(spacing: 12){
                 
                 Text("Don't have an account?")
-                    .foregroundColor(Color.white.opacity(0.7))
+                    .foregroundColor(Color.white.opacity(8.7))
                 
                 Button(action: {model.isSignUp.toggle()}) {
                     
