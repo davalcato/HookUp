@@ -367,7 +367,6 @@ class ModelData : ObservableObject {
     @Published var email_SignUP = ""
     @Published var password_SignUp = ""
     @Published var reEnterPassword = ""
-    @Published var resetEmail = ""
     @Published var islinkSend = false
     
     // Here is where the AlertView with TextFields goes...
@@ -395,11 +394,34 @@ class ModelData : ObservableObject {
         }
         let proceed = UIAlertAction(title: "Reset", style: .default) { (_) in
             
-            self.resetEmail = alert.textFields![0].text!
+            // Sending Password Link...
             
-            // Presenting the alert here after email link has been sent...
-            
-            self.islinkSend.toggle()
+            if alert.textFields![0].text! != ""{
+                
+                withAnimation{
+                    
+                    self.isLoading.toggle()
+                }
+                
+                Auth.auth().sendPasswordReset(withEmail: alert.textFields![0].text!) { (err) in
+                    
+                    withAnimation{
+                        
+                        self.isLoading.toggle()
+                    }
+                    
+                    if err != nil{
+                        
+                        self.alertMsg = err!.localizedDescription
+                        self.alert.toggle()
+                        return
+                    }
+                    
+                    // Alerting the User here...
+                    self.alertMsg = "Password Reset Link Has Been Sent !!!"
+                    self.alert.toggle()
+                }
+            }
         }
         
         let cancel = UIAlertAction(title: "Cancel", style: .destructive, handler: nil)
