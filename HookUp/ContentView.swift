@@ -489,7 +489,7 @@ class ModelData : ObservableObject {
             self.isLoading.toggle()
         }
         
-        Auth.auth().createUser(withEmail: email_SignUP, password: password) { (result, err) in
+        Auth.auth().createUser(withEmail: email_SignUP, password: password_SignUp) { (result, err) in
             
             withAnimation{
                 
@@ -517,8 +517,6 @@ class ModelData : ObservableObject {
                 // Alerting User To Verify Email...
                 self.alertMsg = "Email Verificaion Has Been Sent !!! Now Verify Your Email ID !!!"
                 self.alert.toggle()
-                
-                
                 
             })
         }
