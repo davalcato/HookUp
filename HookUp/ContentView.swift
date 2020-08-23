@@ -12,6 +12,8 @@ import Firebase
 struct ContentView: View {
     
     @AppStorage("log_Status") var status = false
+    // Log out thru ModelData
+    @StateObject var model = ModelData()
     
     var body: some View {
         
@@ -23,7 +25,7 @@ struct ContentView: View {
                     
                     Text("Logged In As \(Auth.auth().currentUser?.email ?? "")")
                     
-                    Button(action: {}, label: {
+                    Button(action: model.logOut, label: {
                         Text("LogOut")
                             .fontWeight(.bold)
                     })
@@ -31,7 +33,7 @@ struct ContentView: View {
             }
             else{
                 
-                LoginView()
+                LoginView(model: model)
             }
         }
     }
@@ -47,7 +49,7 @@ struct ContentView_Previews: PreviewProvider {
 struct LoginView : View {
     
     @State var value : CGFloat = 0
-    @StateObject var model = ModelData()
+    @ObservedObject var model : ModelData
     var body: some View{
         
         ZStack{
@@ -521,6 +523,26 @@ class ModelData : ObservableObject {
             })
         }
     }
+    
+    // Log Out Here...
+    
+    func logOut(){
+        
+        try! Auth.auth().signOut()
+        
+        withAnimation{
+            
+            self.status = false
+        }
+        
+        // Clearing all data here...
+        email = ""
+        password = ""
+        email_SignUP = ""
+        password_SignUp = ""
+        reEnterPassword = ""
+    }
+    
 }
 
 // Checking with Smaller devices...
