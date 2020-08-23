@@ -28,6 +28,7 @@ class Delegate : NSObject, UIApplicationDelegate{
         
         FirebaseApp.configure()
         
+        
         return true
     }
 }

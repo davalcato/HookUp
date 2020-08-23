@@ -8,7 +8,7 @@ target 'HookUp' do
 
   # Pods for HookUp
   pod 'Firebase/Auth'
-
+  pod 'Firebase', '>= 2.5.0'
 
 
   target 'HookUpTests' do
