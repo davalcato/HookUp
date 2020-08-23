@@ -326,8 +326,32 @@ struct SignUpView : View {
             .padding(.trailing)
             .padding(.top,10)
             
+            if model.isLoading{
+                
+                LoadingView()
+                
+            }
+            
         })
         .background(LinearGradient(gradient: .init(colors: [Color("top"),Color("bottom")]), startPoint: .top, endPoint: .bottom)).edgesIgnoringSafeArea(.all)
+        
+        // Alerts...
+        
+        .alert(isPresented: $model.alert, content: {
+            
+            Alert(title: Text("Message"), message: Text(model.alertMsg), dismissButton: .destructive(Text("OK"), action: {
+                
+                // The Email link sent will closing the SignUp View...
+                if model.alertMsg == "Email Verificaion Has Been Sent !!! Now Verify Your Email ID !!!"{
+                    
+                    model.isSignUp.toggle()
+                    model.email_SignUP = ""
+                    model.password_SignUp = ""
+                    model.reEnterPassword = ""
+                }
+                
+            }))
+        })
     }
 }
 
@@ -444,9 +468,61 @@ class ModelData : ObservableObject {
     // SignUp goes here....
     func signUP(){
         
+        // Checking the loading...
         
+        if email_SignUP == "" || password_SignUp == "" || reEnterPassword == ""{
+            
+            self.alertMsg = "Fill in contents correctly !!!"
+            self.alert.toggle()
+            return
+        }
+        
+        if password_SignUp != reEnterPassword{
+            
+            self.alertMsg = "Password Mismatch !!!"
+            self.alert.toggle()
+            return
+        }
+        
+        withAnimation{
+            
+            self.isLoading.toggle()
+        }
+        
+        Auth.auth().createUser(withEmail: email_SignUP, password: password) { (result, err) in
+            
+            withAnimation{
+                
+                self.isLoading.toggle()
+            }
+            
+            if err != nil{
+                
+                self.alertMsg = err!.localizedDescription
+                self.alert.toggle()
+                return
+                
+            }
+            
+            // sending the Verification Link...
+            
+            result?.user.sendEmailVerification(completion: { (err) in
+                
+                if err != nil{
+                    self.alertMsg = err!.localizedDescription
+                    self.alert.toggle()
+                    return
+                    
+                }
+                // Alerting User To Verify Email...
+                self.alertMsg = "Email Verificaion Has Been Sent !!! Now Verify Your Email ID !!!"
+                self.alert.toggle()
+                
+                
+                
+            })
+        }
     }
-    
 }
 
 // Checking with Smaller devices...
