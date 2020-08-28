@@ -8,13 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		46AE6D999555DDF0317F65E2 /* Pods_HookUp_HookUpUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6487415E30F8BB6BB12AE7EC /* Pods_HookUp_HookUpUITests.framework */; };
+		752F2DA424F988B2001FA5A1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 752F2DA324F988B2001FA5A1 /* GoogleService-Info.plist */; };
 		75A3116524E8AE4E00D712A3 /* HookUpApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A3116424E8AE4E00D712A3 /* HookUpApp.swift */; };
 		75A3116724E8AE4E00D712A3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A3116624E8AE4E00D712A3 /* ContentView.swift */; };
 		75A3116924E8AE5000D712A3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 75A3116824E8AE5000D712A3 /* Assets.xcassets */; };
 		75A3116C24E8AE5000D712A3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 75A3116B24E8AE5000D712A3 /* Preview Assets.xcassets */; };
 		75A3117724E8AE5100D712A3 /* HookUpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A3117624E8AE5100D712A3 /* HookUpTests.swift */; };
 		75A3118224E8AE5100D712A3 /* HookUpUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A3118124E8AE5100D712A3 /* HookUpUITests.swift */; };
-		75BA2A4624F19D4A00181854 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 75BA2A4524F19D4A00181854 /* GoogleService-Info.plist */; };
 		B9FB26EFA0EEE830E645DD91 /* Pods_HookUpTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA27B7ED7B4ED86166B62AE2 /* Pods_HookUpTests.framework */; };
 		BCC21F3699A0AAAC3EBB5F6E /* Pods_HookUp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BABF3C17881A11083D9B4357 /* Pods_HookUp.framework */; };
 /* End PBXBuildFile section */
@@ -40,6 +40,7 @@
 		3E84F0D7A7E1CCE13AB55E68 /* Pods-HookUp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HookUp.release.xcconfig"; path = "Target Support Files/Pods-HookUp/Pods-HookUp.release.xcconfig"; sourceTree = "<group>"; };
 		6487415E30F8BB6BB12AE7EC /* Pods_HookUp_HookUpUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HookUp_HookUpUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		73FA44D733986C380A1EF3C0 /* Pods-HookUpTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HookUpTests.release.xcconfig"; path = "Target Support Files/Pods-HookUpTests/Pods-HookUpTests.release.xcconfig"; sourceTree = "<group>"; };
+		752F2DA324F988B2001FA5A1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		75A3116124E8AE4E00D712A3 /* HookUp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HookUp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		75A3116424E8AE4E00D712A3 /* HookUpApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HookUpApp.swift; sourceTree = "<group>"; };
 		75A3116624E8AE4E00D712A3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -52,7 +53,6 @@
 		75A3117D24E8AE5100D712A3 /* HookUpUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HookUpUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		75A3118124E8AE5100D712A3 /* HookUpUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HookUpUITests.swift; sourceTree = "<group>"; };
 		75A3118324E8AE5100D712A3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		75BA2A4524F19D4A00181854 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		ABFD015C571B65999EB081F1 /* Pods-HookUp-HookUpUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HookUp-HookUpUITests.release.xcconfig"; path = "Target Support Files/Pods-HookUp-HookUpUITests/Pods-HookUp-HookUpUITests.release.xcconfig"; sourceTree = "<group>"; };
 		BA27B7ED7B4ED86166B62AE2 /* Pods_HookUpTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HookUpTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BABF3C17881A11083D9B4357 /* Pods_HookUp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HookUp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -127,7 +127,7 @@
 		75A3116324E8AE4E00D712A3 /* HookUp */ = {
 			isa = PBXGroup;
 			children = (
-				75BA2A4524F19D4A00181854 /* GoogleService-Info.plist */,
+				752F2DA324F988B2001FA5A1 /* GoogleService-Info.plist */,
 				75A3116424E8AE4E00D712A3 /* HookUpApp.swift */,
 				75A3116624E8AE4E00D712A3 /* ContentView.swift */,
 				75A3116824E8AE5000D712A3 /* Assets.xcassets */,
@@ -283,7 +283,7 @@
 			files = (
 				75A3116C24E8AE5000D712A3 /* Preview Assets.xcassets in Resources */,
 				75A3116924E8AE5000D712A3 /* Assets.xcassets in Resources */,
-				75BA2A4624F19D4A00181854 /* GoogleService-Info.plist in Resources */,
+				752F2DA424F988B2001FA5A1 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
